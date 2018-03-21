@@ -15,4 +15,8 @@ ICCP .Net está desarrollado para funcionar bajo .Net Framework 4.5 en conjunto 
 # Agradecimientos
 - 
 
+# Licencia
+
+Este programa es libre de uso bajo la [licencia del MIT](https://github.com/oscarinom/ICCP/blob/master/LICENSE)
+
 Made with ♥ in Chile by @oscarinom
