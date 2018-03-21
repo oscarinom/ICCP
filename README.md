@@ -1,3 +1,9 @@
+
+[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/oscarinom) 
+[![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&logo=twitter&label=Follow)](https://twitter.com/oscarinom) 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/oscarinom/ICCP/blob/master/LICENSE)
+
+
 # ICCP .Net - Plataforma de Reclamos Integrada
 
 **ICCP .Net** (Integrated Customers Complaints Platform en .Net por sus siglas en Inglés) es una plataforma creada para las empresas que deseen tener una plataforma de control sobre las solicitudes y requerimientos que el cliente desee comunicar. Ha sido desarrollado en **ASP .Net** y **C#**  como proyecto de titulación para la Universidad de Chile y Accenture.
