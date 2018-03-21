@@ -7,7 +7,7 @@
 
 - **iTextSharp** con licencia [AGPL](https://github.com/itext/itextsharp/blob/develop/LICENSE.md)
 
-## Otras depencias
+## Notas para producción
 
 ICCP .Net está desarrollado para funcionar bajo .Net Framework 4.5 en conjunto con un repositorio de datos en SQL Server (mínimo 2012), ésto último debido a que se utiliza un procedimiento almacenado. 
 
