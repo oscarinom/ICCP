@@ -1,0 +1,247 @@
+﻿@using ICCPReclamos.Negocio;
+@using ICCPReclamos.Datos;
+@{
+    var Listado = new List<Ingreso>();
+    var r = new Datos();
+    Listado = r.ListadoReclamosActivos();
+    @* Comparamos sesión para ver si estamos autenticados y entrar al sistema, sino, redirección *@
+    if (Session["usuarioValido"] != null)
+    {
+        if (!Session["usuarioValido"].Equals("valido"))
+        {
+            Server.Transfer("Login.aspx", true); 
+        }
+    }
+    else
+    {
+        Server.Transfer("Login.aspx", true);
+    }
+}
+
+<!DOCTYPE html>
+<html lang="es-cl">
+<head>
+    <title>Listado de Reclamos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="custom.css" rel="stylesheet">
+    <link href="dashboard.css" rel="stylesheet">
+    @* Referencia a Chart.js *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+    <script>
+        window.onload = function () {
+            var recg = document.getElementById('GraficoUno');
+            var reca = document.getElementById('GraficoDos');
+
+            var reclamosData = { @* Se ingresan los labels del grafico uno que representa reclamos abiertos por area *@
+                labels: [
+                    "Atención al cliente",
+                    "Técnico",
+                    "Comercial"
+                ],
+                datasets: [
+                    {
+                        data: [@r.CountReclamosAreaEstado(1,1),@r.CountReclamosAreaEstado(2,1),@r.CountReclamosAreaEstado(3,1)],
+                        backgroundColor: [
+                            "#58FA82",
+                            "#8181F7",
+                            "#D358F7"]
+                    }]
+            };
+            @* se instancia el gráfico y se lanza *@
+            var pieChart = new Chart(recg, {
+                type: 'pie',
+                data: reclamosData
+            })
+
+            @* Lo mismo para el gráfico 2 *@
+
+            var reclamosData2 = {
+                labels: [
+                    "Abiertos",
+                    "Cerrados"
+                ],
+                datasets: [
+                    {
+                        data: [@r.CountReclamosEstado(1),@r.CountReclamosEstado(2)],
+                        backgroundColor: [
+                            "#58FA82",
+                            "#8181F7"]
+                    }]
+            };
+
+            var pieChart2 = new Chart(reca, {
+                type: 'pie',
+                data: reclamosData2
+            })
+
+        };</script>
+</head>
+<body>
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Expandir</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">ICCP Panel Administración</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Usuarios</a></li>
+                    <li><a href="~/Presentacion/Logs.cshtml">Logs</a></li>
+                    <li><a href="#">Salir</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </nav>
+    @*<div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.aspx">Robotech ICCP.Net</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="index.aspx">Inicio</a></li>
+                    <li class="active"><a href="Listado.cshtml">Listado Reclamos</a></li>
+                    <li><a href="#">NOTENABLED</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Registro</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </nav>*@
+        <!-- test -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#">Inicio <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Reportes</a></li>
+                    <li><a href="#">Estadísticas</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Búsqueda por RUT</a></li>
+                    <li><a href="">Búsqueda por ID Reclamo</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Mantenedor SLA</a></li>
+                    <li><a href="">Mantenedor Tipo de Reclamos</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Mantenedor Usuarios</a></li>
+                    <li><a href="">Mantenedor Clientes</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="position:absolute">
+                <h1 class="page-header">Panel Administración</h1>
+
+                <div class="row placeholders">
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <h1>@r.CountReclamosEstado(1)</h1>
+                        <h4>Reclamos actualmente</h4>
+                        <span class="text-muted">Sin cerrar</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <canvas id="GraficoUno" width="200" height="200"></canvas>
+                        <h4>Reclamos actuales</h4>
+                        <span class="text-muted">Por área sin cerrar</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <canvas id="GraficoDos" width="200" height="200"></canvas>
+                        <h4>Reclamos</h4>
+                        <span class="text-muted">Abiertos / Cerrados</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <canvas id="reclamosComercial" width="200" height="200"></canvas>
+                        <h4>Label</h4>
+                        <span class="text-muted">Something else</span>
+                    </div>
+                </div>
+
+
+                <h2 class="sub-header">Últimos 5 reclamos abiertos por vencer</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>RUT</th>
+                                <th>Área</th>
+                                <th>Comentarios</th>
+                                <th>Fecha</th>
+                                <th>SLA</th>
+                                <th>PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var registro in Listado.Take(5))
+                            {
+                                var fechaActual = DateTime.Now;
+                                var id = registro.Id;
+                                string comentario = registro.Comentarios;
+                                if (registro.Comentarios.Length > 20)
+                                {
+                                    comentario = registro.Comentarios.Substring(0, 20) + " (...)";
+                                }
+                                <tr>
+                                    <td><a href="Editar.aspx?id=@id">@id</td>
+                                    <td>@registro.Nombre</td>
+                                    <td>@registro.Apellido</td>
+                                    <td>@registro.Rut</td>
+                                    <td>@registro.Tipo</td>
+                                    <td>@comentario</td>
+                                    <td>@registro.Fecha</td>
+                                    @if (registro.SLA < fechaActual)
+                                    {
+                                        <td><span class="label label-danger">@registro.SLA</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="label label-warning">@registro.SLA</span></td>
+                                    }
+                                    <td><a href="../PdfUploads/@registro.Pdf" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @if (Listado.Count > 5)
+                    {
+                        var extra = Listado.Count - 5;
+                        <p><a href="ListadoCompleto.cshtml">+ @extra Reclamos</a></p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- chart js minimizado -->
+
+<!-- bootstrap 3 minimizado -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- último js de bs 3 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</html>
