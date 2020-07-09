@@ -29,3 +29,10 @@ Para utilizar la plataforma **ICCP .Net** descarga la [documentación adjunta de
 Este programa es libre de uso bajo la [licencia del MIT](https://github.com/oscarinom/ICCP/blob/master/LICENSE)
 
 Made with ♥ in Chile by @oscarinom
+
+# Personas involucradas en este proyecto
+
+Mariana Rivas
+Sebastián Miranda
+Joel Baez
+Benjamin Ruiz
