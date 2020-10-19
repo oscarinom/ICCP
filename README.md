@@ -18,7 +18,7 @@ ICCP .Net está desarrollado para funcionar bajo .Net Framework 4.5 en conjunto 
 
 # Uso
 
-Para utilizar la plataforma **ICCP .Net** descarga la [documentación adjunta de la Base de Datos (en formato .docx)](https://github.com/oscarinom/ICCP/blob/master/Documentaci%C3%B3n%20Base%20de%20Datos%20SQL.docx) y realiza las funciones ahí descritas en **"Script Base de Datos ( sin DATA )"**. Luego, corre el script de **"Procedimiento Almacenado "InsertarReclamo""** y así tendrás la funcionalidad de la plataforma.
+Para utilizar la plataforma **ICCP .Net** descarga la [documentación adjunta de la Base de Datos (en formato .docx)](https://github.com/oscarinom/ICCP/blob/master/Documentaci%C3%B3n%20Base%20de%20Datos%20SQL.docx) y realiza las funciones ahí descritas en **"Script Base de Datos ( sin DATA )"**. Luego, corre el script de **"Procedimiento Almacenado "InsertarReclamo""** y así tendrás la funcionalidad de la plataforma..
 
 
 # Agradecimientos
